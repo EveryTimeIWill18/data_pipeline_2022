@@ -64,8 +64,13 @@ class DAG(object):
                     self.degrees[pointed] = 0
                 self.degrees[pointed] += 1
 
+    def will_sort_dag(self):
+        to_visit = deque()
+
     def sort_dag(self):
         to_visit = deque()
+        for node in self.graph:
+            pass
 
 
 
