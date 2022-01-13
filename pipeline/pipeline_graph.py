@@ -47,6 +47,9 @@ class DAG(object):
                 self.graph_[to] = []
             # Find the node and append to, to node's list
             self.graph_[node].append(to)
+            # Check the cycle of the graph
+            if len(self.will_sort_dag()) != len(self.graph_):
+                raise Exception
 
     def add_vertex(self, id: int, data: int, connections=[]):
         if len(self.graph) == 0:
