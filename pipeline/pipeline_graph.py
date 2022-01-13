@@ -65,12 +65,29 @@ class DAG(object):
                 self.degrees[pointed] += 1
 
     def will_sort_dag(self):
+        in_degrees = self.degrees_
         to_visit = deque()
+        for node in self.graph_:
+            if in_degrees[node] == 0:
+                to_visit.append(node)
+
+        searched = []
+        while to_visit:
+            node = to_visit.popleft()
+            for pointer in self.graph_[node]:
+                in_degrees[pointer] -= 1
+                if in_degrees[pointer] == 0:
+                    to_visit.append(pointer)
+            searched.append(node)
+        return searched
+
+
 
     def sort_dag(self):
         to_visit = deque()
         for node in self.graph:
-            pass
+            if self.graph_[node] == 0:
+                pass
 
 
 
@@ -107,11 +124,12 @@ def main():
     print(dag.graph_)
     dag.get_in_degrees()
     print(dag.degrees_)
-    dag.sort_dag()
+    sorted_dag = dag.will_sort_dag()
+    print(f'sorted_dag: {sorted_dag}')
+    # print(searched)
     # graph.add_vertex(id=1, data=100)
     # g = list(graph.graph[1].keys())
     # print(g[0].connections)
-
 
 if __name__ == '__main__':
     main()
